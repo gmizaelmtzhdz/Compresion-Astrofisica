@@ -1,0 +1,211 @@
+------------------------------------------- 
+INFINITUME1C603
+A9B6C6B66CKeyla#
+		LIBRERIAS INSTALADAS
+
+sudo pip install glymur
+sudo apt-get install openjpeg-tools
+sudo apt-get install python-pgmagick
+sudo pip install Pillow
+sudo apt-get install openjpeg-tools
+sudo pip install -I 'Pillow>=2.4.0'
+sudo apt-get install python-skimage
+sudo apt-get install libgdcm2.2
+sudo apt-get install libgdcm-tools
+sudo apt-get install python-gdcm
+sudo apt-get install python-gdal
+sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
+sudo pip install pydicom
+sudo pip install PyWavelets
+sudo apt-get install imagemagick
+sudo apt-get install dconf-tools
+	->http://askubuntu.com/questions/136024/how-to-stop-nautilus-from-creating-thumbnails-of-specific-file-types
+	->instalar Thunar
+sudo pip install Wand
+sudo which python: localizacion de interprete de python
+sudo pip install -U scikit-learn
+-------------------------------------------
+Script automático
+export EDITOR="vim"
+crontab -r ->borrar
+crontab -e ->editar
+crontab -l ->ver
+MAILITO=g.mizael@hotmail.com
+* * * * * cd /opt/lampp/htdocs/Compresion/Servidor_Background/ && sh script.sh
+-------------------------------------------
+		PRUEBAS CON IMAGENES NUMPY
+jpg->549.8k [ORIGINAL]
+jpeg->122.9k
+png->1.3Mb
+gif->962.2k
+bmp->2.6mb
+		PRUEBAS CON IMAGENES NUMPY [Optimizado=True]
+jpg->549.8k [ORIGINAL]
+jpeg->120.0k
+png->1.3Mb
+gif->961.8k
+bmp->2.6Mb
+		PRUEBAS CON IMAGENES PGMAGIC
+jpg->549.8k [ORIGINAL]
+jpeg->148.2k
+jp2->165.7k
+jp2->660.9k [95 Calidad]
+jp2->216.5k [80 Calidad]
+jp2->63.3k [50 Calidad]
+png->1.3M
+gif->598.1k
+bmp->2.6M
+jls->120.0k
+
+Usando jp2, con 50 de calidad 
+	Pasar de JP2 a PNG luego a JP2 de nuevo [pgmagic]
+	jp2->63.3k
+	png->931.5k
+	jp2->131.6k
+
+	Pasar de JP2 a JPG luego a JP2 de nuevo [pgmagic]
+	jp2->63.3k
+	jpg->114.8k
+	jp2->165.8k
+
+
+	Escala de Grises, usando transformada de walet, umbral=10
+jpeg->188.7k [Original] sin transformada
+jpeg->160.5k
+jp2->360.7k
+jls->149.5k
+
+	Escala de Grises, Reeditando la salida, de jpeg, del punto anterior, umbral=10
+jpeg->160.5k
+jls->148.837k
+jp2->360.620k
+-------------------------------------------
+Definiciones de JPEG.ORG
+JPEG-LS was defined to address the need for effective lossless and near-lossless compression of continuous-tone still images.
+-------------------------------------------
+zip -r compresion.zip copia\ de\ Compresion/
+-------------------------------------------
+Run no-ip: sudo noip2
+
+
+--------------------------------------------------------------------------------------
+Otras notas: 
+RLPE: El proposito del método se basa en una predicción de regresión lineal clásica seguida de la codificación aritmética basada en el contexto de los residuos del resultado.
+
+-Imagenes divididas en bloques 8x8
+-se calcula MMSE para cada bloque
+-Un algoritmo de agrupamiento produce una estimación inicial para refinar los predictores asociados
+
+-Después de particionar de forma preliminar la imagen de entrada en bloques cuadrados, por ejemplo, 8 × 8, un soporte de predicción causal del tamaño S se fija, y los coeIcients S de un predictor lineal MMSE se calculan para cada bloque por medio de un algoritmo de mínimos 
+cuadrados (LS) *se obtienen para cada bloque*
+
+-Se puede observar que los bloques estadísticamente similares exhiben predictores similares.
+
+Agrupación de predictores: 
+
+
+MMSE: mide el promedio de los errores al cuadrado
+Regresión lineal: para la predicción
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+JPEG-2000 & JPEG-LS
+-transformada de coseno discreta (DCT) o la transformada wavelet discreta (DWT) 
+JPEG-LS: versión de loco (nasa)
+
+--------------------------------------------------------------------------------------
+Esquema de codificación
+	Dividir matriz en bloques de 8 x 8 
+	calcular mmse, para cada bloque
+	
+
+
+Definiciones Básicos: 
+l={(i,j) E Z⁺² | 0 <= i < I, 0 <= j < J}  
+
+l: coordenadas de pixeles de la imágen
+
+I: tamaño de filas
+J: tamaño de columnas
+
+Z: Numeros enteros
+
+G={g(i,j) | (i,j)El}
+Linfinito=Error absoluto máximo, o la distancia entre la imágen original y la decodificada
+g: Z⁺² -> Z⁺  and 0 <= g(.,.) <= gfs (una imagen discreta en escala de grises)
+
+El 2D causal neighbourhoolds: 
+* Será escaneado de izquierda a derecha y de arriba a abajo
+* L={n E Z⁺ | V(i,j)El}
+
+n = (J*i+j), tal que  0 <= n < N
+
+N=I*J
+
+n*= (i*,j*), del vecindario de cada bloque
+
+
+*Vecindario con distancia euclediana
+
+**********************************************
+
+
+Paso 0: Clasificar bloques en función de su error de predicción cuadrático medio (MSPE). La etiqueta del predictor minimizar MSPE para un bloque se asigna al propio bloque. Esta operación tiene el efecto de dividir el conjunto de bloques en clases M que se adecúan mejor por los predictores encontrados previamente.
+
+
+Paso 1: Volver a calcular cada uno de los predictores m de los datos que pertenecen a los bloques de cada clase. El nuevo conjunto de predictores de este modo se ha diseñado para reducir al mínimo MSPE para la partición bloque actual en clases M.
+
+
+Paso 2: Reclasificar bloques: la etiqueta de la nueva predictor minimizar MSPE para un bloque se asigna al propio bloque. Esta operación tiene el efecto de mover algunos bloques de una clase a otra, por lo tanto volver a particionar el conjunto de bloques en M nuevas clases que se adecúan mejor por los predictores actuales
+
+Paso 3: Comprobación de la convergencia. De realizarse, detener; de lo contrario, vaya al paso 1
+
+
+
+
+Función de contexto e(n) se define y se mide con los errores de predicción que se encuentran dentro de la zona de causalidad (vecindario) 2D, como la medida de RMS de los errores de predicción cuantificados ponderados por el reciproco de las distancias eucledianas.
+
+
+
+
+
+
+
+
+
+
+
+
+Se calcula RMS para el vecindario del pixel actual
+
+
+Ausencia de ruido el algoritmo es adecuado.
+
+
+
+
+
+
+
+
+___________________________________________________________________________
+
+JPEG-2000
+-Via lactea
+-Galaxia enana
+
+JPEG-LS
+-nebulosa
+-andromeda
+-hoag
+-ngc
+-sombrero
+
+4-211
+
+codigo 
+manuales
+poster
+escrito encuentro
+
+javajeveva
+
+

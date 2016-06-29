@@ -1,0 +1,98 @@
+body {
+    background-color:#F7FAF9;
+    
+    font-size: 18px;
+    color:black;
+    font-weight: normal;
+}
+
+h1
+{
+	text-align: center;
+}
+#headerwrap
+{
+	background: url("../img/banner_3.png");
+	box-shadow: 0px 3px 3px #888888;
+	background-size:cover;
+	height: 400px;
+	width: 100%;
+	position: relative;
+}
+#contenedor
+{
+	min-height: 600px;
+	margin: 15px;
+	padding-bottom: 100px;
+}
+.imagen
+{
+	margin: 0 auto;
+}
+#exito,#error
+{
+	text-align: center;
+}
+#cf
+{
+	text-align: center;
+	padding-top: 40px;
+	padding-bottom: 20px;
+	box-shadow: 0px 3px 3px #000000;
+}
+#cargar_imagen
+{
+	margin: 0 auto !important;
+	width: 80%;
+}
+.subir
+{
+	min-width: 300px;
+	width: 100%;
+	height: 70px;
+	font-size: 24px;
+	margin-top: 10px;
+	margin-top: 
+}
+@media (min-width: 768px)
+{
+	.modal-sm
+	{
+	    width: 95%;
+	}
+}
+.menu{
+    width: 360px;
+    right: -300px;
+}
+.menu-wrap {
+    width: 300px;
+}
+.DTTT_container
+{
+	display: none;
+}
+.tools, .actions > a
+{
+	float: left;
+}
+.table, .groceryCrudTable
+{
+	font-size: 80%;
+	font-weight: normal;
+}
+.titulo_table
+{
+	font-weight: bold;
+	font-size: 110%;
+}
+#modal_generico_titulo
+{
+	text-align: center;
+	
+}
+#algoritmo_elegido
+{
+	font-weight: bold;
+	font-size: 130%;
+}

@@ -1,0 +1,50 @@
+#!/usr/bin/env python
+#-*- coding:utf-8 -*-
+
+import numpy as np
+import pylab
+import matplotlib.cm as cm
+import Image
+import sys
+import os.path
+from pgmagick import Image as Image_PG
+import time
+#/home/mizael/Descargas/grises08andromeda--a3.jpg
+def main():
+	#print len(sys.argv)
+	#print sys.argv
+	if len(sys.argv)==5:
+		original=""
+		jpeg_2000=""
+		jpeg_ls=""
+		rlpe=""
+		if os.path.isfile(sys.argv[1]):
+			original=sys.argv[1]
+
+		if os.path.isfile(sys.argv[2]):
+			imagen = Image_PG(sys.argv[2])
+			jpeg_2000="/opt/lampp/htdocs/Compresion/Servidor_Interaccion/assets/uploads/files/j_2%s.jpg"%(int(time.time()))
+			imagen.write(jpeg_2000)
+			
+		if os.path.isfile(sys.argv[3]):
+			imagen = Image_PG(sys.argv[3])
+			jpeg_ls="/opt/lampp/htdocs/Compresion/Servidor_Interaccion/assets/uploads/files/j_l%s.jpg"%(int(time.time()))
+			imagen.write(jpeg_ls)
+
+		if os.path.isfile(sys.argv[4]):
+			rlpe=sys.argv[4]
+
+		f = pylab.figure("Comparacion de Imagenes")
+		
+		print enumerate((original, jpeg_2000,jpeg_ls,rlpe))
+		for n, fname in enumerate((original, jpeg_2000,jpeg_ls,rlpe)):
+			image=Image.open(fname).convert("L")
+			arr=np.asarray(image)
+			f.add_subplot(1, 4, n+1)  # this line outputs images side-by-side
+			pylab.imshow(arr,cmap=cm.Greys_r)
+		pylab.title('Comparacion de Imagenes \n-JPEG\n-JPEG-200\n-JPEG-LS\n-RLPE\n')
+		
+		pylab.show()
+
+if __name__ == "__main__":
+	main()
