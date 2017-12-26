@@ -5,4 +5,5 @@ Compresión de Imágenes Astrofísicas
 * RLPE 
 
 
-2016
+@date 2016
+@author G. Mizael Mtz Hdz
